@@ -91,6 +91,12 @@ module ZohoHub
         post(path, data: [{ Note_Title: title, Note_Content: content }])
       end
 
+      def add_tags(id:, tag_names: [])
+        action = 'add_tags?' + tag_names.join(',')
+        path = File.join(request_path, id, 'actions', action)
+        post(path)
+      end
+
       def all_related(parent_module:, parent_id:)
         body = get(File.join(parent_module.constantize.request_path, parent_id, request_path))
         response = build_response(body)
